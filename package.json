@@ -1,0 +1,14 @@
+{
+  "name": "illisible",
+  "packageManager": "yarn@4.9.1",
+  "scripts": {
+    "s": "clear && yarn tsx src/test.ts",
+    "b": "clear && tsc --emitDeclarationOnly && esbuild src/main.ts --minify --bundle --outfile=dist/main.js --platform=node --format=esm"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.8",
+    "tsc": "^2.0.4",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}
