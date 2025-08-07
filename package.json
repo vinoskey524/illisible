@@ -1,5 +1,6 @@
 {
   "name": "illisible",
+  "type": "module",
   "packageManager": "yarn@4.9.1",
   "scripts": {
     "s": "clear && yarn tsx src/test.ts",

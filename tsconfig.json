@@ -1,18 +1,27 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-   "module": "ESNext",
-   "declaration": true,
-   "declarationDir": "./dist",
-   "outDir": "./dist",
-   "rootDir": "./src",
-   "moduleResolution": "Node",
-   "esModuleInterop": true,
-   "skipLibCheck": true,
-   "strict": true,
-   "allowImportingTsExtensions": true,
-   "removeComments": true,
-   "sourceMap": false
+    "module": "ESNext",
+    "declaration": true,
+    "declarationDir": "./dist",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": false,
+    "removeComments": true,
+    "sourceMap": false,
+
+    // Best practices
+    "strict": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // Some stricter flags (disabled by default)
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noPropertyAccessFromIndexSignature": false
   },
   "include": ["src/**/*", "type/**/*"],
   "exclude": ["dist", "node_modules"]

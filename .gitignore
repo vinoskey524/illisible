@@ -18,4 +18,5 @@ node_modules
 
 dist
 src/secure.ts
+src/test.ts
 .DS_Store
