@@ -25,7 +25,7 @@ type CIPHER_ALGO_TYPE = '128' | '256';
 
 type GEN_KEY_TYPE = { algo: CIPHER_ALGO_TYPE };
 
-type INIT_ARG_TYPE = { key: string, defaultAlgo?: CIPHER_ALGO_TYPE };
+type INIT_ARG_TYPE = { key: string, algo?: CIPHER_ALGO_TYPE };
 
 type ENCRYPT_ARG_TYPE = { data: string, algo?: CIPHER_ALGO_TYPE };
 type ENCRYPT_RETURN_TYPE = Promise<FUNCTION_DEFAULT_RETURN_TYPE>;
@@ -122,7 +122,7 @@ const initFunc = (x: INIT_ARG_TYPE) => {
     if (typeof x.key === 'string' && isAlphanumFunc(x.key)) keyData.current = x.key;
 
     /* Set default algo */
-    if (x.defaultAlgo) defaultAlgoData.current = x.defaultAlgo;
+    if (x.algo) defaultAlgoData.current = x.algo;
 };
 
 /* Is alphanumeric */

@@ -3,13 +3,28 @@
   "version": "1.0.0",
   "type": "module",
   "packageManager": "yarn@4.9.2",
+  "description": "A powerful and high-performance cross-runtime encryption software.",
+  "exports": {
+    "import": "./src/main.mjs"
+  },
+  "types": "./src/main.d.mts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinoskey524/illisible.git"
+  },
+  "author": "Hamet Kévin E. ODOUTAN - @vinoskey524",
+  "bugs": {
+    "url": "https://github.com/vinoskey524/illisible/issues"
+  },
+  "homepage": "https://github.com/vinoskey524/illisible#readme",
+  "keywords": [],
+  "license": "MIT",
   "scripts": {
     "s": "clear && yarn tsx src/test.ts",
     "b": "tsup src/main.ts --format esm --dts && esbuild dist/main.js --bundle --minify --format=esm --platform=node --outfile=dist/main.mjs --keep-names --allow-overwrite"
   },
   "devDependencies": {
     "esbuild": "^0.25.8",
-    "tsc": "^2.0.4",
     "tsup": "^8.5.0",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
