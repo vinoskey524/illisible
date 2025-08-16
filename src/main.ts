@@ -4,7 +4,7 @@
 *
 * A powerful and high-performance cross-runtime encryption software.
 *
-* @vinoskey524 • Hamet ODOUTAN (Author)
+* @vinoskey524 • Hamet Kévin E. ODOUTAN (Author)
 *
 */
 

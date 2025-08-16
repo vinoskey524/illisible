@@ -1,14 +1,15 @@
 {
   "name": "illisible",
   "type": "module",
-  "packageManager": "yarn@4.9.1",
+  "packageManager": "yarn@4.9.2",
   "scripts": {
     "s": "clear && yarn tsx src/test.ts",
-    "b": "clear && tsc --emitDeclarationOnly && esbuild src/main.ts --minify --bundle --outfile=dist/main.js --platform=node --format=esm"
+    "b": "tsup src/main.ts --format esm --dts && esbuild dist/main.js --bundle --minify --format=esm --platform=node --outfile=dist/main.mjs --keep-names --allow-overwrite"
   },
   "devDependencies": {
     "esbuild": "^0.25.8",
     "tsc": "^2.0.4",
+    "tsup": "^8.5.0",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   }

@@ -7,11 +7,11 @@
 
 node_modules
 src
-dist/secure.d.ts
-dist/test.d.ts
-
 .DS_Store
+
 .env
+.yarnrc.yml
+.editorconfig
 .gitattributes
 .gitignore
 .pnp.*

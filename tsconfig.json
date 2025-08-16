@@ -7,9 +7,10 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "moduleResolution": "Node",
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowImportingTsExtensions": true,
-    "noEmit": false,
+    "noEmit": true,
     "removeComments": true,
     "sourceMap": false,
 
