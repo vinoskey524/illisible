@@ -1,5 +1,6 @@
 {
   "name": "illisible",
+  "version": "1.0.0",
   "type": "module",
   "packageManager": "yarn@4.9.2",
   "scripts": {

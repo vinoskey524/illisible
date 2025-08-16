@@ -1,4 +1,4 @@
-# illisible
+# illisible <img src="assets/logo.png" alt="logo" width="40" height="40" style="vertical-align:middle;margin-top:-12px">
 
 A powerful and high-performance cross-runtime encryption software.
 
@@ -26,6 +26,9 @@ $ npm install illisible
 
 # yarn
 $ yarn add illisible
+
+# pnpm
+$ pnpm add illisible
 
 # bun
 $ bun add illisible
