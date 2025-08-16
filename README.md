@@ -1,4 +1,4 @@
-# illisible <img src="assets/logo.png" alt="logo" width="40" height="40" style="vertical-align:middle;margin-top:-12px">
+# illisible <img src="assets/logo.png" alt="logo" width="40" height="40" style="vertical-align:bottom;margin-top:-12px">
 
 A powerful and high-performance cross-runtime encryption software.
 
@@ -162,7 +162,7 @@ Hashed data :: 'f6e248ea994f3e342f61141b8b8e3ede86d4de53257abc8d06ae07a1da73fb39
 
 ## Author
 
-My name is **Hamet Kévin E. ODOUTAN** (@vinoskey524). I’ve been doing software development since 8 years now. I do web, desktop, and mobile development, and now I’m very excited to contribute to open-source with forestDB.
+My name is **Hamet Kévin E. ODOUTAN** (@vinoskey524) and I’ve been doing software development (web, desktop and mobile) since 2017.
 
 I’m not the kind of developer who types “How to build a cool web app” into Google and picks the first response, or the kind who makes a dumb copy-paste from ChatGPT. No !
 I like to understand things and know what I’m really doing. For me, a real developer should be able to explain every single line of his code.
