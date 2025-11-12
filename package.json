@@ -1,13 +1,17 @@
 {
   "name": "illisible",
-  "version": "1.0.0",
+  "version": "1.0.8",
   "type": "module",
   "packageManager": "yarn@4.9.2",
   "description": "A powerful and high-performance cross-runtime encryption software.",
+  "main": "./dist/main.js",
+  "types": "./dist/main.d.ts",
   "exports": {
-    "import": "./src/main.mjs"
+    "import": {
+      "types": "./dist/main.d.ts",
+      "default": "./dist/main.js"
+    }
   },
-  "types": "./src/main.d.mts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vinoskey524/illisible.git"
@@ -16,12 +20,39 @@
   "bugs": {
     "url": "https://github.com/vinoskey524/illisible/issues"
   },
-  "homepage": "https://github.com/vinoskey524/illisible#readme",
-  "keywords": [],
+  "homepage": "https://package524.vercel.app",
+  "keywords": [
+    "illisible",
+    "encryption",
+    "secure",
+    "security",
+    "cipher",
+    "hash",
+    "password",
+    "aes",
+    "react",
+    "react-native",
+    "native",
+    "preact",
+    "angular",
+    "vue",
+    "svelte",
+    "node",
+    "deno",
+    "bun",
+    "javascript",
+    "typescript",
+    "library",
+    "software",
+    "latest",
+    "new"
+  ],
   "license": "MIT",
   "scripts": {
     "s": "clear && yarn tsx src/test.ts",
-    "b": "tsup src/main.ts --format esm --dts && esbuild dist/main.js --bundle --minify --format=esm --platform=node --outfile=dist/main.mjs --keep-names --allow-overwrite"
+    "b": "clear && tsup src/main.ts --format esm --dts && esbuild dist/main.js --bundle --minify --format=esm --platform=node --outfile=dist/main.mjs --keep-names --allow-overwrite",
+    "p": "clear && npm publish --access public",
+    "i": "clear && npm info illisible"
   },
   "devDependencies": {
     "esbuild": "^0.25.8",

@@ -2,6 +2,8 @@
 
 A powerful and high-performance cross-runtime encryption software.
 
+[Official Documentation](https://package524.vercel.app)
+
 ## Table of contents
 
 - [Installation](#installation)
@@ -39,15 +41,20 @@ $ deno add npm:illisible
 
 ## What's illisible
 
-Illisible is a french word that means "unreadable", and in fact, its goal is to make your sensitive data secure and unreadable by unauthorized sources. To achive that purpose, it uses the powerful `AES-GCM` algorithm to **`cipher`** (encrypt), **`decipher`** (decrypt) and **`hash`** your data.
 
-It's compatible with `Node.js`, `Deno`, `Bun` and `Web frontend frameworks` (React, Vue, Angular, etc.) and has been designed to be efficient, easy-to-use, with a very clear APIs.
+Illisible is a french word that means "unreadable", and in fact, its goal is to make your sensitive data secure and unreadable by unauthorized sources. To achieve that purpose, it uses the powerful `AES-GCM` algorithm to **`cipher`** (encrypt), **`decipher`** (decrypt) and **`hash (SHA-256)`** your data.
+
+For encryption and decryption, it uses a two-layer encryption method. The first layer employs **AES-GCM**, while the second applies an algorithm that **shuffles** 
+the encrypted data, adding an extra layer of security.
+
+It's compatible with `Node`, `Deno`, `Bun`, `Browsers` and has been designed to be efficient, easy-to-use, with a very clear APIs.
+> It'll be compatible with React native also in v2.
 
 ## Cipher vs Hash
 
-- **`cipher`**:
+- **`cipher`**: A cipher is a method used to protect information by transforming readable data (plaintext) into an unreadable form (ciphertext) using a secret key. The same or a related key can then be used to reverse the process and recover the original plaintext. This makes ciphers **reversible**, as long as the correct key is known. Modern ciphers, such as AES, RSA, and ChaCha20, are designed to secure data against unauthorized access. The main goal of a cipher is **confidentiality**, ensuring that only those with the proper key can understand the message.
 
-- **`Hash`**:
+- **`Hash`**: A hash is a one-way mathematical function that converts input data into a fixed-length string of characters, often called a hash value or digest. Unlike a cipher, a hash **cannot be reversed** to retrieve the original input. Even a tiny change in the input will produce a completely different hash value, making it useful for verifying data integrity, password storage, and digital signatures. Examples of hashing algorithms include SHA-256, MD5, and BLAKE2. The primary purpose of a hash is **integrity and identification**, not confidentiality.
 
 ## API Documentation
 
@@ -61,16 +68,22 @@ First of all, we need to initialize illisible.
 import illisible from 'illisible';
 
 const illi = illisible.init({
-    key: 'Vipi8IAWAYBlEWXCAlBWkk3TouVzpe63',
-    defaultAlgo: '128'
+    key: 'Vipi8IAWAYBlEWXCAlBWkk3TouVzpe63', // The "key" should always be alphanumeric
+    algo: '128'
 });
 ```
 
-- `init(*)`: It takes as argument a JSON object with the following properties :
+- **`init(*)`**: It takes as argument a JSON object with the following properties:
 
-  - **`key`**: (`string`) Your secret encryption key.
+  - `key`: (`string`) Your secret encryption key.
 
-  - **`defaultAlgo?`**: (`128 | 256`) The algo that will be used by default for both encryption and decryption. It's optional and use the `128` algo by default.
+  - `algo?`: (`128 | 256`) The algo that will be used by default for both encryption and decryption. It's optional and use the `128` algo by default.
+
+- `AES-128`: It uses a 128-bit key (16 bytes). This means there are 2<sup>128</sup> possible keys, which is already astronomically large. It is faster than AES-256 because it requires fewer rounds of computation (10 rounds). Despite having a shorter key length, AES-128 is still considered extremely secure and has no practical attacks against it when implemented correctly.
+
+- `AES-256`: It uses a 256-bit key (32 bytes). This doubles the key size compared to AES-128, giving 2<sup>256</sup> possible keys. It requires more computational effort (14 rounds) and is therefore slightly slower than AES-128. The larger key length provides a higher theoretical security margin, making brute-force attacks even less feasible. AES-256 is often chosen for situations where long-term data protection is required or when regulations demand maximum key length.
+
+In most cases, **AES-128 is recommended** since it’s faster and already provides more than enough security for practical use.
 
 ### **generateKey**
 
@@ -79,9 +92,9 @@ const key = illi.generateKey();
 console.log('key ::', key);
 ```
 
-- `generateKey(?)`: It optionally takes as argument a JSON object with the following property :
+- **`generateKey(?)`**: It optionally takes as argument a JSON object with the following property:
 
-  - **`algo`**: (`128 | 256`) Specify the algo for which you want to generate the key.
+  - `algo`: (`128 | 256`) Specify the algo for which you want to generate the key. It use `128` by default.
 
 ```sh
 # log
@@ -94,11 +107,11 @@ It returns the key as an `alphanumeric` string with a length of 32 for `128` and
 
 ```ts
 const data = 'Hello, world !';
-const encrypt = await illi.encrypt({ data: data });
+const encrypt = await illi.encrypt({ data });
 console.log('Encrypted data ::', encrypt);
 ```
 
-- **`encrypt(*)`**: It takes as argument a JSON object with the following properties :
+- **`encrypt(*)`**: It takes as argument a JSON object with the following properties:
 
   - `data`: (`string`) The data you want to encrypt.
 
@@ -113,7 +126,7 @@ Encrypted data :: {
 }
 ```
 
-It returns as result a JSON object with the following properties :
+It returns as result a JSON object with the following properties:
 
 - **`ok`**: (`boolean`) Indicates the status of the process: `true` for success and `false` for failure.
 
@@ -164,25 +177,31 @@ Hashed data :: 'f6e248ea994f3e342f61141b8b8e3ede86d4de53257abc8d06ae07a1da73fb39
 
 My name is **Hamet Kévin E. ODOUTAN** (@vinoskey524) and I’ve been doing software development (web, desktop and mobile) since 2017.
 
-I’m not the kind of developer who types “How to build a cool web app” into Google and picks the first response, or the kind who makes a dumb copy-paste from ChatGPT. No !
-I like to understand things and know what I’m really doing. For me, a real developer should be able to explain every single line of his code.
+I’m not the kind of developer who makes a dumb copy-paste from ChatGPT. No! I like to understand things and know what I’m really doing. 
+For me, a real developer should be able to explain every single line of his code.
 
 Don’t ask me which school or university I attended, because I taught myself software engineering using PDFs from **openclassrooms.com**, which was called **siteduzero** when I started.
-A sad truth is that you can’t learn coding just by watching videos; you need books !
+A sad truth is that you can’t learn coding just by watching videos; you need books!
 
-I’m really passionate about building software, and **I sincerely believe that being a developer is not just a job, but a lifestyle** !
+I’m really passionate about building software, and **I sincerely believe that being a developer is not just a job, but a lifestyle**!
 
 ## Other packages
 
 Below are other packages from the same author.
 
+<!-- - **[voicify](https://npmjs.com/package/voicify)**: A highly efficient and blazing fast Text-To-Speech (TTS) software. -->
+
 - **[forestdb](https://npmjs.com/package/forestdb)**: An uncomplicated real-time database with encrypted HTTP and WebSocket server-client communication, fast caching, dataflow and state management, a cross-runtime file system manager, and more, working seamlessly on both frontend and backend.
 
 - **[cococity](https://npmjs.com/package/cococity)**: A lightweight and high-performance library that provides regional data and precise GPS-based localization, without relying on external APIs.
 
-<!-- - **[feedlist](https://npmjs.com/package/feedlist)**: . -->
+- **[feedlist-react](https://npmjs.com/package/@vinoskey524/feedlist-react)**: A highly efficient and high-performance feeds renderer, designed for React.
 
-<!-- - **[voicify](https://npmjs.com/package/voicify)**: A highly efficient and blazing fast Text-To-Speech (TTS) software. -->
+- **[feedlist-react-native](https://npmjs.com/package/@vinoskey524/feedlist-react-native)**: A highly efficient and high-performance feeds renderer, designed for React Native (Bare and Expo).
+
+- **[panda](https://npmjs.com/package/@vinoskey524/panda)**: Advanced JSON-based state manager for React and React Native (Bare and Expo).
+
+- **[oh-my-json](https://npmjs.com/package/@vinoskey524/oh-my-json)**: The zenith of JSON manipulation.
 
 ## Contact Me
 

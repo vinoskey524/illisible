@@ -4,10 +4,11 @@
 *
 * A powerful and high-performance cross-runtime encryption software.
 *
-* @vinoskey524 • Hamet Kévin E. ODOUTAN (Author)
+* @vinoskey524 • Hamet Kévin E. ODOUTAN • vinoskey524@gmail.com (Author)
 *
 */
 
+/* The "securs.ts" file may not be present for security reasons */
 import { cipherFunc, decipherFunc, hasherFunc } from './secure';
 
 /* ------------------------------- Types ------------------------------- */
@@ -126,13 +127,13 @@ const initFunc = (x: INIT_ARG_TYPE) => {
 };
 
 /* Is alphanumeric */
-const isAlphanumFunc = (x: string) => {
+const isAlphanumFunc = (x: string): boolean => {
     if (typeof x !== 'string') return false;
     return /^[a-zA-Z0-9]+$/.test(x);
 };
 
 /* Generate key */
-const generateKeyFunc = (x?: GEN_KEY_TYPE) => {
+const generateKeyFunc = (x?: GEN_KEY_TYPE): string => {
     const klen = ((x?.algo || defaultAlgoData.current) === '128') ? 32 : 64; /* Key length */
 
     let id = '';
@@ -143,7 +144,7 @@ const generateKeyFunc = (x?: GEN_KEY_TYPE) => {
 };
 
 /* Encrypt data */
-const encryptDataFunc = async (x: ENCRYPT_ARG_TYPE) => {
+const encryptDataFunc = async (x: ENCRYPT_ARG_TYPE): Promise<FUNCTION_DEFAULT_RETURN_TYPE> => {
     let res: FUNCTION_DEFAULT_RETURN_TYPE = { ok: true, log: '', data: undefined };
     try {
         const ciph = await cipherFunc({ data: x.data, algo: x?.algo || defaultAlgoData.current, key: keyData.current! });
@@ -154,7 +155,7 @@ const encryptDataFunc = async (x: ENCRYPT_ARG_TYPE) => {
 };
 
 /* Decrypt data */
-const decryptDataFunc = async (x: DECRYPT_ARG_TYPE) => {
+const decryptDataFunc = async (x: DECRYPT_ARG_TYPE): Promise<FUNCTION_DEFAULT_RETURN_TYPE> => {
     let res: FUNCTION_DEFAULT_RETURN_TYPE = { ok: true, log: '', data: undefined };
     try {
         const deciph = await decipherFunc({ data: x.data, algo: x?.algo || defaultAlgoData.current, key: keyData.current! });
@@ -165,7 +166,7 @@ const decryptDataFunc = async (x: DECRYPT_ARG_TYPE) => {
 };
 
 /* Hash data */
-const hashDataFunc = async (x: HASH_ARG_TYPE) => {
+const hashDataFunc = async (x: HASH_ARG_TYPE): Promise<FUNCTION_DEFAULT_RETURN_TYPE> => {
     let res: FUNCTION_DEFAULT_RETURN_TYPE = { ok: true, log: '', data: undefined };
     try {
         const hash = await hasherFunc({ data: x.data });
