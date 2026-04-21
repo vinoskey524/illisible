@@ -3,8 +3,8 @@
     "target": "ES2022",
     "module": "ESNext",
     "declaration": true,
-    "declarationDir": "./dist",
-    "outDir": "./dist",
+    "declarationDir": "archive/1.0.8/dist",
+    "outDir": "archive/1.0.8/dist",
     "rootDir": "./src",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
@@ -13,17 +13,21 @@
     "noEmit": true,
     "removeComments": true,
     "sourceMap": false,
-
     // Best practices
     "strict": true,
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
-
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
   },
-  "include": ["src/**/*", "type/**/*"],
-  "exclude": ["dist", "node_modules"]
+  "include": [
+    "src/**/*",
+    "type/**/*"
+  ],
+  "exclude": [
+    "archive/1.0.8/dist",
+    "node_modules"
+  ]
 }

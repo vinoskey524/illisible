@@ -15,18 +15,20 @@ import { cipherFunc, decipherFunc, hasherFunc } from './secure';
 
 type MAIN_TYPE = {
     init: (x: INIT_ARG_TYPE) => {
-        generateKey: (x?: GEN_KEY_TYPE) => string,
         encrypt: (x: ENCRYPT_ARG_TYPE) => ENCRYPT_RETURN_TYPE,
         decrypt: (x: DECRYPT_ARG_TYPE) => DECRYPT_RETURN_TYPE,
         hash: (x: HASH_ARG_TYPE) => HASH_RETURN_TYPE
-    }
+    },
+    generateKey: (x?: GEN_KEY_TYPE) => string
 };
+
+type INIT_ARG_TYPE = { key: string, runtime: RUNTIME_TYPE, algo?: CIPHER_ALGO_TYPE, };
 
 type CIPHER_ALGO_TYPE = '128' | '256';
 
 type GEN_KEY_TYPE = { algo: CIPHER_ALGO_TYPE };
 
-type INIT_ARG_TYPE = { key: string, algo?: CIPHER_ALGO_TYPE };
+type RUNTIME_TYPE = 'Web' | 'Node' | 'Bun' | 'Deno';
 
 type ENCRYPT_ARG_TYPE = { data: string, algo?: CIPHER_ALGO_TYPE };
 type ENCRYPT_RETURN_TYPE = Promise<FUNCTION_DEFAULT_RETURN_TYPE>;
@@ -80,6 +82,9 @@ const keyData: { current: string | undefined } = { current: undefined };
 /* Store default algo */
 const defaultAlgoData: { current: CIPHER_ALGO_TYPE } = { current: '128' };
 
+/* Store runtime */
+const runtimeData: { current: RUNTIME_TYPE } = { current: 'Web' };
+
 /* 
 -
 -
@@ -117,29 +122,33 @@ const defaultAlgoData: { current: CIPHER_ALGO_TYPE } = { current: '128' };
 
 /* Init */
 const initFunc = (x: INIT_ARG_TYPE) => {
-    if (!x) return;
-
+    if (!x)
+        return;
     /* Set keys */
-    if (typeof x.key === 'string' && isAlphanumFunc(x.key)) keyData.current = x.key;
-
+    if (typeof x.key === 'string' && isAlphanumFunc(x.key))
+        keyData.current = x.key;
     /* Set default algo */
-    if (x.algo) defaultAlgoData.current = x.algo;
+    if (x.algo)
+        defaultAlgoData.current = x.algo;
+    /* Set runtime */
+    if (x.runtime)
+        runtimeData.current = x.runtime;
 };
 
 /* Is alphanumeric */
 const isAlphanumFunc = (x: string): boolean => {
-    if (typeof x !== 'string') return false;
+    if (typeof x !== 'string')
+        return false;
     return /^[a-zA-Z0-9]+$/.test(x);
 };
 
 /* Generate key */
 const generateKeyFunc = (x?: GEN_KEY_TYPE): string => {
     const klen = ((x?.algo || defaultAlgoData.current) === '128') ? 32 : 64; /* Key length */
-
     let id = '';
     const val = '0aW9zXe8CrVt1By5NuA46iZ3oEpRmTlYkUjIhOgPfMdQsSqDwFxGcHvJbKnL';
-
-    for (var i = 0; i < klen; i++) id += val.charAt(Math.floor(Math.random() * 36));
+    for (var i = 0; i < klen; i++)
+        id += val.charAt(Math.floor(Math.random() * 36));
     return id;
 };
 
@@ -147,10 +156,20 @@ const generateKeyFunc = (x?: GEN_KEY_TYPE): string => {
 const encryptDataFunc = async (x: ENCRYPT_ARG_TYPE): Promise<FUNCTION_DEFAULT_RETURN_TYPE> => {
     let res: FUNCTION_DEFAULT_RETURN_TYPE = { ok: true, log: '', data: undefined };
     try {
-        const ciph = await cipherFunc({ data: x.data, algo: x?.algo || defaultAlgoData.current, key: keyData.current! });
-        if (!ciph.ok) throw new Error(ciph.log);
+        const ciph = await cipherFunc({
+            data: x.data,
+            algo: x?.algo || defaultAlgoData.current,
+            key: keyData.current!,
+            runtime: runtimeData.current,
+        });
+        if (!ciph.ok)
+            throw new Error(ciph.log);
         res.data = ciph.data;
-    } catch (e: any) { res.ok = false; res.log = e.message }
+
+    } catch (e: any) {
+        res.ok = false;
+        res.log = e.message
+    }
     return res;
 };
 
@@ -158,10 +177,20 @@ const encryptDataFunc = async (x: ENCRYPT_ARG_TYPE): Promise<FUNCTION_DEFAULT_RE
 const decryptDataFunc = async (x: DECRYPT_ARG_TYPE): Promise<FUNCTION_DEFAULT_RETURN_TYPE> => {
     let res: FUNCTION_DEFAULT_RETURN_TYPE = { ok: true, log: '', data: undefined };
     try {
-        const deciph = await decipherFunc({ data: x.data, algo: x?.algo || defaultAlgoData.current, key: keyData.current! });
-        if (!deciph.ok) throw new Error(deciph.log);
+        const deciph = await decipherFunc({
+            data: x.data,
+            algo: x?.algo || defaultAlgoData.current,
+            key: keyData.current!,
+            runtime: runtimeData.current
+        });
+        if (!deciph.ok)
+            throw new Error(deciph.log);
         res.data = deciph.data;
-    } catch (e: any) { res.ok = false; res.log = e.message }
+
+    } catch (e: any) {
+        res.ok = false;
+        res.log = e.message
+    }
     return res;
 };
 
@@ -169,10 +198,18 @@ const decryptDataFunc = async (x: DECRYPT_ARG_TYPE): Promise<FUNCTION_DEFAULT_RE
 const hashDataFunc = async (x: HASH_ARG_TYPE): Promise<FUNCTION_DEFAULT_RETURN_TYPE> => {
     let res: FUNCTION_DEFAULT_RETURN_TYPE = { ok: true, log: '', data: undefined };
     try {
-        const hash = await hasherFunc({ data: x.data });
-        if (!hash.ok) throw new Error(hash.log);
+        const hash = await hasherFunc({
+            data: x.data,
+            runtime: runtimeData.current
+        });
+        if (!hash.ok)
+            throw new Error(hash.log);
         res.data = hash.data;
-    } catch (e: any) { res.ok = false; res.log = e.message }
+
+    } catch (e: any) {
+        res.ok = false;
+        res.log = e.message
+    }
     return res;
 };
 
@@ -212,17 +249,13 @@ const hashDataFunc = async (x: HASH_ARG_TYPE): Promise<FUNCTION_DEFAULT_RETURN_T
 /* ------------------------------- illisible ------------------------------- */
 
 const illisible: MAIN_TYPE = {
+    /* Init */
     init(x: INIT_ARG_TYPE) {
         /* Init "illisible" */
         initFunc(x);
 
         /* - */
         const next = {
-            /* Generate key */
-            generateKey(x?: GEN_KEY_TYPE): string {
-                return generateKeyFunc(x);
-            },
-
             /* Encrypt */
             async encrypt(x: ENCRYPT_ARG_TYPE): ENCRYPT_RETURN_TYPE {
                 return await encryptDataFunc(x);
@@ -239,6 +272,11 @@ const illisible: MAIN_TYPE = {
             }
         };
         return next;
+    },
+
+    /* Generate key */
+    generateKey(x?: GEN_KEY_TYPE): string {
+        return generateKeyFunc(x);
     }
 };
 export default illisible;

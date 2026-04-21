@@ -9,6 +9,7 @@
 
 node_modules
 dist
+archive
 src/secure.ts
 src/test.ts
 .DS_Store
